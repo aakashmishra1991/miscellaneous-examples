@@ -1,0 +1,30 @@
+spec:
+  template:
+    spec:            
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
+      - name: config
+        configMap:
+          name: maven-settings
+          items:
+          - key: settings.xml
+            path: settings.xml
+      containers:
+        - name: itorders
+          env:
+          - name: JAVA_OPTIONS
+            value: "-Dorg.kie.server.repo=/data -Dorg.jbpm.document.storage=/data/docs -Dspring.profiles.active=openshift"
+          - name: KIE_MAVEN_REPO_USER
+            value: kieserver
+          - name: KIE_MAVEN_REPO_PASSWORD
+            value: kieserver1!
+          - name: KIE_MAVEN_REPO
+            value: http://192.168.100.4:8080/kie-wb/maven2   
+          volumeMounts:
+          - mountPath: /data
+            name: data  
+          - mountPath: /opt/jboss/.m2
+            name: config
+               

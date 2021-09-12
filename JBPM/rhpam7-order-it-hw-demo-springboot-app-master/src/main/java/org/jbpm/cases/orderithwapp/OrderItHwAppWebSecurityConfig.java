@@ -39,7 +39,10 @@ public class OrderItHwAppWebSecurityConfig extends WebSecurityConfigurerAdapter 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("kieserver").password("{noop}kieserver1!").roles("kie-server");
+    auth.inMemoryAuthentication()
+        .withUser("kieserver")
+        .password("{noop}kieserver1!")
+        .roles("kie-server");
         auth.inMemoryAuthentication().withUser("adminUser").password("{noop}test1234!").roles("kie-server");
         auth.inMemoryAuthentication().withUser("executionUser").password("{noop}test1234!").roles("kie-server");
         

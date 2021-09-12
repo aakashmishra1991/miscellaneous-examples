@@ -1,0 +1,22 @@
+package minerva.process
+ 
+import com.minerva.model.Message;
+ 
+rule "Hello World"
+ruleflow-group "dog"
+    when
+        m : Message( status == Message.HELLO, myMessage : message )
+    then
+        System.out.println( myMessage );
+        m.setMessage( "Goodbye from shikha" );
+        m.setStatus( Message.GOODBYE );
+        update( m );
+end
+
+rule "GoodBye"
+ruleflow-group "dog"
+    when
+        Message( status == Message.GOODBYE, myMessage : message )
+    then
+        System.out.println( myMessage );
+end

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <process processType="Private" isExecutable="true" id="com.minerva.bpmn.helloworld" name="Hello World" >
+
+    <!-- nodes -->
+    <scriptTask id="_2" name="Hello" >
+      <script>System.out.println("Hello World");</script>
+    </scriptTask>
+    <startEvent id="_1"  isInterrupting="true">
+    </startEvent>
+    <endEvent id="_3" >
+        <terminateEventDefinition />
+    </endEvent>
+    <businessRuleTask id="businessruletask1" name="Business rule task" g:ruleFlowGroup="dog" 
+ implementation="http://www.jboss.org/drools/rule" >
+      <ioSpecification>
+        <inputSet>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+    </businessRuleTask>
+    <scriptTask id="scripttask1" name="endFlow" >
+      <script>System.out.println("Flow finish here. Thanks");</script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="scripttask1-_3" sourceRef="scripttask1" targetRef="_3" />
+    <sequenceFlow id="_2-businessruletask1" sourceRef="_2" targetRef="businessruletask1" />
+    <sequenceFlow id="businessruletask1-scripttask1" sourceRef="businessruletask1" targetRef="scripttask1" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.minerva.bpmn.helloworld" >
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="100" y="36" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="4" y="36" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="524" y="32" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="businessruletask1" >
+        <dc:Bounds x="231" y="32" width="105" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" >
+        <dc:Bounds x="371" y="28" width="105" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="28" y="60" />
+        <di:waypoint x="140" y="60" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="scripttask1-_3" >
+        <di:waypoint x="423" y="55" />
+        <di:waypoint x="548" y="56" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-businessruletask1" >
+        <di:waypoint x="140" y="60" />
+        <di:waypoint x="283" y="59" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="businessruletask1-scripttask1" >
+        <di:waypoint x="283" y="59" />
+        <di:waypoint x="423" y="55" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>
